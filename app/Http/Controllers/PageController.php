@@ -19,18 +19,35 @@ class PageController extends Controller
         $this->messengerService = $messengerService;
         
         try {
+            $appId = config('services.facebook.app_id');
+            $appSecret = config('services.facebook.app_secret');
+            
+            if (empty($appId) || empty($appSecret)) {
+                Log::warning('Facebook credentials not configured in .env file');
+                $this->facebook = null;
+                return;
+            }
+            
             $this->facebook = new Facebook([
-                'app_id' => config('services.facebook.app_id'),
-                'app_secret' => config('services.facebook.app_secret'),
+                'app_id' => $appId,
+                'app_secret' => $appSecret,
                 'default_graph_version' => config('services.facebook.graph_version'),
             ]);
         } catch (FacebookSDKException $e) {
             Log::error('Facebook SDK initialization error: ' . $e->getMessage());
+            $this->facebook = null;
         }
     }
 
     public function connect()
     {
+        if ($this->facebook === null) {
+            return view('pages.connect', [
+                'page' => null,
+                'error' => 'Facebook API credentials are not configured. Please add FACEBOOK_APP_ID and FACEBOOK_APP_SECRET to your .env file.'
+            ]);
+        }
+        
         $page = Page::where('user_id', auth()->id())->first();
         
         return view('pages.connect', compact('page'));
@@ -38,6 +55,11 @@ class PageController extends Controller
 
     public function callback(Request $request)
     {
+        if ($this->facebook === null) {
+            return redirect()->route('pages.connect')
+                ->with('error', 'Facebook API is not configured. Please add credentials to .env file.');
+        }
+        
         if (!$request->has('code')) {
             return redirect()->route('pages.connect')
                 ->with('error', 'Facebook authorization failed. Please try again.');
@@ -115,6 +137,10 @@ class PageController extends Controller
 
     public function getLoginUrl()
     {
+        if ($this->facebook === null) {
+            return '#';
+        }
+        
         $helper = $this->facebook->getRedirectLoginHelper();
         
         $permissions = [

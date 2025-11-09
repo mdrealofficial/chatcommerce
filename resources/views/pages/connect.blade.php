@@ -19,6 +19,22 @@
                 </div>
             @endif
 
+            @if (isset($error))
+                <div class="mb-6 bg-yellow-100 border border-yellow-400 text-yellow-800 px-4 py-3 rounded relative" role="alert">
+                    <strong class="font-bold">Configuration Required!</strong>
+                    <p class="block sm:inline mt-2">{{ $error }}</p>
+                    <div class="mt-4 p-4 bg-yellow-50 rounded">
+                        <p class="text-sm font-medium mb-2">To configure Facebook API:</p>
+                        <ol class="text-sm list-decimal list-inside space-y-1">
+                            <li>Go to <a href="https://developers.facebook.com/apps" target="_blank" class="text-blue-600 hover:underline">Facebook Developers</a></li>
+                            <li>Create a new app or use existing one</li>
+                            <li>Add your App ID and App Secret to <code class="bg-gray-200 px-2 py-1 rounded">.env</code> file</li>
+                            <li>Restart your Laravel server</li>
+                        </ol>
+                    </div>
+                </div>
+            @endif
+
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-8">
                     @if($page && $page->is_connected)

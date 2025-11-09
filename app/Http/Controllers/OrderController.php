@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Order;
 use App\Services\MessengerService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class OrderController extends Controller
 {
@@ -133,16 +134,16 @@ class OrderController extends Controller
 
         if (isset($messages[$status])) {
             $page = $order->conversation->page;
-            $messengerService = new MessengerService($page->access_token);
+            $messengerService = new MessengerService();
             
             try {
                 $messengerService->sendMessage(
+                    $page->access_token,
                     $order->conversation->psid,
-                    $messages[$status],
-                    'POST_PURCHASE_UPDATE' // Facebook tag for order updates
+                    $messages[$status]
                 );
             } catch (\Exception $e) {
-                \Log::error('Failed to send status notification: ' . $e->getMessage());
+                Log::error('Failed to send status notification: ' . $e->getMessage());
             }
         }
     }

@@ -163,7 +163,7 @@ class PiprapayService
     {
         try {
             $page = $order->conversation->page;
-            $messengerService = new MessengerService($page->access_token);
+            $messengerService = new MessengerService();
             
             $message = "✅ Payment received for Order #{$order->id}!\n\n" .
                       "Amount: ৳" . number_format($order->total_amount, 2) . "\n" .
@@ -171,9 +171,9 @@ class PiprapayService
                       "Thank you for your purchase!";
 
             $messengerService->sendMessage(
+                $page->access_token,
                 $order->conversation->psid,
-                $message,
-                'POST_PURCHASE_UPDATE'
+                $message
             );
         } catch (\Exception $e) {
             \Log::error('Failed to send payment confirmation: ' . $e->getMessage());
