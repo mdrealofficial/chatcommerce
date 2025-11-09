@@ -5,7 +5,7 @@
                 Products
             </h2>
             <a href="{{ route('products.create') }}" 
-               class="inline-flex items-center px-4 py-2 bg-blue-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition ease-in-out duration-150 shadow-md">
+               class="inline-flex items-center px-4 py-2 bg-green-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition ease-in-out duration-150 shadow-md">
                 <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
                 </svg>
@@ -42,12 +42,12 @@
                             </select>
                         </div>
                         <button type="submit" 
-                                class="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition shadow-md font-semibold">
+                                class="px-6 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition shadow-md font-semibold">
                             Search
                         </button>
                         @if(request('search') || request('status') !== null)
                             <a href="{{ route('products.index') }}" 
-                               class="px-6 py-2 bg-gray-600 text-white rounded-md hover:bg-gray-700 transition shadow-md font-semibold">
+                               class="px-6 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition shadow-md font-semibold">
                                 Clear
                             </a>
                         @endif
@@ -121,7 +121,7 @@
                                         <!-- Actions -->
                                         <div class="flex gap-2">
                                             <a href="{{ route('products.edit', $product) }}" 
-                                               class="flex-1 text-center px-3 py-2 bg-orange-500 text-white text-sm font-semibold rounded hover:bg-orange-600 transition shadow-md">
+                                               class="flex-1 text-center px-3 py-2 bg-green-600 text-white text-sm font-semibold rounded hover:bg-green-700 transition shadow-md">
                                                 Edit
                                             </a>
                                             <form action="{{ route('products.destroy', $product) }}" 
@@ -131,7 +131,7 @@
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" 
-                                                        class="w-full px-3 py-2 bg-red-600 text-white text-sm font-semibold rounded hover:bg-red-700 transition shadow-md">
+                                                        class="w-full px-3 py-2 bg-green-600 text-white text-sm font-semibold rounded hover:bg-green-700 transition shadow-md">
                                                     Delete
                                                 </button>
                                             </form>
@@ -161,7 +161,7 @@
                         <h3 class="text-lg font-semibold text-gray-900 mb-2">No products found</h3>
                         <p class="text-gray-600 mb-6">Get started by creating your first product.</p>
                         <a href="{{ route('products.create') }}" 
-                           class="inline-flex items-center px-6 py-3 bg-blue-600 border border-transparent rounded-md font-semibold text-sm text-white uppercase tracking-widest hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition ease-in-out duration-150 shadow-lg">
+                           class="inline-flex items-center px-6 py-3 bg-green-600 border border-transparent rounded-md font-semibold text-sm text-white uppercase tracking-widest hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition ease-in-out duration-150 shadow-lg">
                             <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
                             </svg>
